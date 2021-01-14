@@ -3,16 +3,17 @@ import {TaskType} from "./App";
 import './App.css';
 
 type PropsType = {
+    id:string
     title: string
     tasks: TaskType[]
-    removeTask: (id: string) => void
-    setFilter: (filter: "all" | "completed" | "active") => void
-    addTasks:(newTitle:string)=>void
-    changeStatus:(id:string , newIsDone:boolean)=>void
+    removeTask: (id: string,todolistID:string) => void
+    setFilter: (filter: "all" | "completed" | "active",todolistID:string) => void
+    addTasks:(newTitle:string,todolistID:string)=>void
+    changeStatus:(id:string , newIsDone:boolean,todolistID:string)=>void
     filter:"all" | "completed" | "active"
 }
 
-export const Todolist =  ({title, tasks, removeTask, setFilter,addTasks,changeStatus,filter}: PropsType) => {
+export const Todolist =  (props: PropsType) => {
 
     const [addTitle, setAddTitle] = useState('Jylio')
     const [error,setError] = useState<string|null>(null)
@@ -26,27 +27,27 @@ export const Todolist =  ({title, tasks, removeTask, setFilter,addTasks,changeSt
     const inputOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" ){
             if (addTitle.trim()!==''){
-                addTasks(addTitle)
+                props.addTasks(addTitle,props.id)
                 setAddTitle('')
             }else{setError('Title is required')}
-    }}
+        }}
     const addTask = () => {
         if (addTitle.trim()!==''){
-            addTasks(addTitle)
+            props.addTasks(addTitle,props.id)
             setAddTitle('')
         }else{setError('Title is required')}
     }
 
-    const buttonOnClickFilterAll = () => setFilter('all')
-    const buttonOnClickFilterActive = () => setFilter('active')
-    const buttonOnClickFilterCompleted = () => setFilter('completed')
+    const buttonOnClickFilterAll = () => props.setFilter('all',props.id)
+    const buttonOnClickFilterActive = () => props.setFilter('active',props.id)
+    const buttonOnClickFilterCompleted = () => props.setFilter('completed',props.id)
 
-    const buttonClassFilterAll = filter === "all"? 'colorButton': ''
-    const buttonClassFilterActive= filter === "active"? 'colorButton': ''
-    const buttonClassFilterCompleted = filter === "completed"? 'colorButton': ''
+    const buttonClassFilterAll = props.filter === "all"? 'colorButton': ''
+    const buttonClassFilterActive= props.filter === "active"? 'colorButton': ''
+    const buttonClassFilterCompleted = props.filter === "completed"? 'colorButton': ''
 
     return <div>
-        <h3>{title}</h3>
+        <h3>{props.title}</h3>
         <div>
             <input
                 value={addTitle}
@@ -62,9 +63,9 @@ export const Todolist =  ({title, tasks, removeTask, setFilter,addTasks,changeSt
         </div>
         <ul>
             {
-                tasks.map(t => <li key={t.id}><input type="checkbox" onClick={(e)=>{changeStatus(t.id , e.currentTarget.checked)}} checked={t.isDone}/> <span>{t.title} </span>
+                props.tasks.map(t => <li key={t.id}><input type="checkbox" onClick={(e)=>{props.changeStatus(t.id , e.currentTarget.checked,props.id)}} checked={t.isDone}/> <span>{t.title} </span>
                     <button onClick={() => {
-                        removeTask(t.id)
+                        props.removeTask(t.id,props.id)
                     }}>x
                     </button>
                 </li>)
