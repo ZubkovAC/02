@@ -6,34 +6,7 @@
 .App > div {
   margin-right: 50px;
 }
-button{
-  margin-left: 10px;
-  height: 35px;
-  border-radius: 12px;
-  outline: none;
-  min-width: 40px;
-  font-weight: 600;
-}
-.input{
-  min-width: 40px;
-  height: 25px;
-  outline: none;
-  border-radius: 4px;
-}
-.inputError{
-  min-width: 40px;
-  height: 25px;
-  border: 2px solid red;
-  outline: none;
-  border-radius: 4px;
-}
-.colorButton{
-  background-color: greenyellow;
-
-}
-.error {
-  color:red;
-  font-weight: 600;
-  text-shadow: 0 0 15px white;
-  font-size: 20px;
+.color {
+  background-color: grey;
+  color:white;
 }

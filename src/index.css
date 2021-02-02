@@ -5,10 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image:url("https://store-images.s-microsoft.com/image/apps.59871.13844868329507759.07372d86-a484-4a8f-a924-abf609635a3e.47c359b3-40d3-40a2-97b0-4a29b40ce6de?mode=scale&q=90&h=1080&w=1920")  ;
-  background-size: 100% auto;
-  opacity: 0.8;
-  color:white;
 }
 
 code {
