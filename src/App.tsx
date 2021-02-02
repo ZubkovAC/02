@@ -5,6 +5,7 @@ import { v1 } from 'uuid';
 import {AddItemForm} from "./AddItemForm";
 
 
+
 type TodolistsType = {
     id:string
     title:string
@@ -128,6 +129,7 @@ const App = () => {
                     }
 
                     return(
+
                         <Todolist
                             id={t.id}
                             key={t.id}
@@ -146,7 +148,6 @@ const App = () => {
                     )
                 })
             }
-
         </div>
     );
 }

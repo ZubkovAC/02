@@ -2,6 +2,9 @@ import React, {ChangeEvent} from 'react';
 import {TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import {Button, ButtonGroup, Checkbox} from "@material-ui/core";
+import {DeleteSweep} from "@material-ui/icons";
+
 
 
 type PropsType = {
@@ -36,11 +39,19 @@ export const Todolist =  (props:PropsType) => {
 
     return <div>
         <h3>
-            <EditableSpan  onChange={newTitleTodolist} title={props.title}/><button onClick={()=>{props.removeTodolist(props.id)}}>x</button>
+            <EditableSpan  onChange={newTitleTodolist} title={props.title}/><DeleteSweep  color="disabled" onClick={()=>{props.removeTodolist(props.id)}}>x</DeleteSweep>
         </h3>
 
         <AddItemForm  addTitle={addTasks}/>
 
+
+        <div style={{paddingTop:'20px'}}>
+            <ButtonGroup color="primary" size="small" aria-label="small primary button group" >
+                <Button  variant={props.filter === 'all'? 'contained' : 'text' } color="primary"  onClick={buttonOnClickFilterAll}>All</Button>
+                <Button  variant={props.filter === 'active'? 'contained' : 'text' } color="primary"  onClick={buttonOnClickFilterActive}>Active</Button>
+                <Button  variant={props.filter === 'completed'? 'contained' : 'text' } color="primary"  onClick={buttonOnClickFilterCompleted}>Completed</Button>
+            </ButtonGroup>
+        </div>
 
         <ul>
             {
@@ -51,23 +62,18 @@ export const Todolist =  (props:PropsType) => {
                         props.newTitleTask(title,props.id,t.id)
                     }
 
+                    return <div key={t.id}>
 
-                    return <li key={t.id}>
-                        <input type="checkbox" onChange={taskPosition} checked={t.isDone}/>
+                        <Checkbox style={{color:'navy'}} onChange={taskPosition} checked={t.isDone}/>
                         <EditableSpan  onChange={newTitleTask} title={t.title}/>
 
-                    <button onClick={() => {
+                    <DeleteSweep  style={{marginTop:'5px'}}  color="disabled" onClick={() => {
                         props.removeTask(t.id,props.id)
-                    }}>x</button>
-                </li>
+                    }}>x</DeleteSweep>
+                </div>
                 })
             }
-
         </ul>
-        <div>
-            <button className={props.filter === 'all'? 'color':''} onClick={buttonOnClickFilterAll}>All</button>
-            <button className={props.filter === 'active'? 'color':''} onClick={buttonOnClickFilterActive}>Active</button>
-            <button className={props.filter === 'completed'? 'color':''} onClick={buttonOnClickFilterCompleted}>Completed</button>
-        </div>
+
     </div>
 }

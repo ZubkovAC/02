@@ -1,15 +1,16 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-
+import {TextField} from "@material-ui/core";
+import {Add} from "@material-ui/icons";
 
 type AddItemFormPropsType = {
-    addTitle:(title:string)=>void
+    addTitle: (title: string) => void
 }
 
 
-export const AddItemForm =(props:AddItemFormPropsType)=> {
+export const AddItemForm = (props: AddItemFormPropsType) => {
 
-    const [error,setError]=useState<string | null>(null)
-    const [addTitle, setAddTitle] = useState('Jylio')
+    const [error, setError] = useState<string | null>(null)
+    const [addTitle, setAddTitle] = useState('')
 
     const inputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         setAddTitle(e.currentTarget.value)
@@ -20,30 +21,35 @@ export const AddItemForm =(props:AddItemFormPropsType)=> {
     }
 
     const addItem = () => {
-        if (addTitle.trim() !==''){
+        if (addTitle.trim() !== '') {
             props.addTitle(addTitle)
             setAddTitle('')
-        }else{
+        } else {
             setError('Title is required')
         }
     }
 
     return (
         <div>
-        <div>
-            <input
-                value={addTitle}
-                onChange={inputOnChange}
-                onKeyPress={inputOnKeyPress}
-            />
-            <button
-                onClick={addItem}
-            > +
-            </button>
-        </div>
-        {
-            error ? <div>{error}</div> : ''
-        }
+            <div>
+                <TextField
+
+                    id="standard-textarea"
+                    label="New Task"
+                    placeholder=""
+                    multiline
+                    value={addTitle}
+                    onChange={inputOnChange}
+                    onKeyPress={inputOnKeyPress}
+                />
+                <Add style={{marginTop:'25px'}}
+                    onClick={addItem}
+                > +
+                </Add>
+            </div>
+            {
+                error ? <div>{error}</div> : ''
+            }
         </div>
     )
 }
