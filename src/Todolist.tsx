@@ -5,6 +5,9 @@ import {EditableSpan} from "./EditableSpan";
 import {Button, ButtonGroup, Checkbox} from "@material-ui/core";
 import {DeleteSweep} from "@material-ui/icons";
 
+export type FilterValuesType ={
+    filter: "all" | "completed" | "active"
+}
 
 
 type PropsType = {
