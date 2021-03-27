@@ -3,26 +3,10 @@ import {v1} from 'uuid';
 import {AddTodolistsActionType, RemoveTodolistActionType} from "./todolists-reducer";
 
 
-export const inicialStateTask = {
-    'todolistID1': [
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false},
-        {id: v1(), title: "Hello world", isDone: true},
-        {id: v1(), title: "I am Happy", isDone: false},
-        {id: v1(), title: "Yo", isDone: false}
-    ],
-    'todolistID2': [
-        {id: v1(), title: "S-A-S-S", isDone: true},
-        {id: v1(), title: "NODE JS", isDone: true},
-        {id: v1(), title: "VjI", isDone: false},
-        {id: v1(), title: "PyToHt", isDone: true},
-        {id: v1(), title: "RybI", isDone: false},
-        {id: v1(), title: "ANguLAr", isDone: false}
-    ]
-}
+export const inicialStateTask: TasksStateType  = {}
+export type InicialStateTask = typeof inicialStateTask
 
-export const tasksReducer = (state: TasksStateType = inicialStateTask, action: ActionsType): TasksStateType => {
+export const tasksReducer = (state: InicialStateTask = inicialStateTask, action: ActionsType): TasksStateType => {
     switch (action.type) {
         case "ADD-TASKS":
             let newTasks = {id: v1(), title: action.newTitle, isDone: false}

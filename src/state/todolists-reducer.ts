@@ -1,8 +1,12 @@
 import {TodolistsType} from "../App";
 
+export type InitialState = typeof initialState
+
+const initialState : TodolistsType[]= []
 
 
-export const todolistsReducer = (state: TodolistsType[], action:ActionsType):TodolistsType[] =>{
+
+export const todolistsReducer = (state: InitialState =initialState , action:ActionsType):TodolistsType[] =>{
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
             return state.filter(tl => tl.id !== action.id)
@@ -24,7 +28,7 @@ export const todolistsReducer = (state: TodolistsType[], action:ActionsType):Tod
             return [...state]
         }
         default:
-            throw new Error("I don't understand this type")
+            return state
     }
 }
 
