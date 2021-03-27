@@ -22,7 +22,7 @@ export type TasksStateType={
     [key:string]:TaskType[]
 }
 
-const App = () => {
+const AppWithRedux = () => {
 
     const changeFilter = (value:"all" | "completed" | "active", todolistID:string) =>{
         let filterTask=  todolists.find(t=>t.id===todolistID)
@@ -152,4 +152,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default AppWithRedux;
