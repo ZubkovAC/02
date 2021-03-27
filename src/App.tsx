@@ -18,7 +18,7 @@ export  type TaskType = {
     isDone: boolean
 }
 
-type TasksType={
+export type TasksType={
     [key:string]:TaskType[]
 }
 

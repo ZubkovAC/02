@@ -2,10 +2,14 @@ import {
     ChangeTodolistsFiltersActionType,
     todolistsReducer,
     RemoveTodolistAC,
-    AddTodolistslistAC, ChangeTodolistsTitlestAC, ChangeTodolistsFiltersTitlestAC
+    ChangeTodolistsTitlestAC,
+    ChangeTodolistsFiltersTitlestAC,
+    AddTodolistsAC,
+    AddTodolistsActionType
 } from './todolists-reducer';
 import {v1} from 'uuid';
-import {TodolistsType} from '../App';
+import {TasksType, TodolistsType} from '../App';
+import {tasksReducer} from "./tasks-reducer";
 
 
 test('correct todolist should be removed', () => {
@@ -35,15 +39,15 @@ test('correct todolist should be added', () => {
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
+    let todolistID5=v1()
 
-    const endState = todolistsReducer(startState, { type: 'ADD-TODOLIST', title: newTodolistTitle})
+    const endState = todolistsReducer(startState, { type: 'ADD-TODOLIST',todolistID3: todolistID5, title: newTodolistTitle})
     //const endState1 = todolistsReducer(startState,AddTodolistslistAC(newTodolistTitle))
 
     expect(endState.length).toBe(3);
     expect(endState[2].title).toBe(newTodolistTitle);
     expect(endState[2].filter).toBe('all');
 });
-
 
 
 test('correct todolist should change its name', () => {
@@ -71,7 +75,6 @@ test('correct todolist should change its name', () => {
 });
 
 
-
 test('correct filter of todolist should be changed', () => {
     let todolistId1 = v1();
     let todolistId2 = v1();
@@ -96,3 +99,34 @@ test('correct filter of todolist should be changed', () => {
     expect(endState[1].filter).toBe(newFilter);
 });
 
+
+
+
+test('new array should be added when new todolist is added', () => {
+    const startState: TasksType = {
+        "todolistId1": [
+            { id: "1", title: "CSS", isDone: false },
+            { id: "2", title: "JS", isDone: true },
+            { id: "3", title: "React", isDone: false }
+        ],
+        "todolistId2": [
+            { id: "1", title: "bread", isDone: false },
+            { id: "2", title: "milk", isDone: true },
+            { id: "3", title: "tea", isDone: false }
+        ]
+    };
+    let todolistID5=v1()
+    const action : AddTodolistsActionType = AddTodolistsAC(todolistID5,"new todolist");
+
+    const endState = tasksReducer(startState, action)
+
+
+    const keys = Object.keys(endState);
+    const newKey = keys.find(k => k != "todolistId1" && k != "todolistId2");
+    if (!newKey) {
+        throw Error("new key should be added")
+    }
+
+    expect(keys.length).toBe(3);
+    expect(endState[newKey]).toEqual([]);
+});
