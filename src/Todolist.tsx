@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -26,11 +26,12 @@ type PropsType = {
 
 export const Todolist =  (props:PropsType) => {
 
+    console.log('xyu')
 
-
-    const addTasks = (title:string) =>{
+    const addTasks =useCallback(  (title:string) =>{
+        console.log('xyu')
         props.addTasks(title,props.id)
-    }
+    },[])
     const newTitleTodolist = (newTitle:string) => {
         props.newTitleTodolist(newTitle,props.id)
     }
@@ -39,6 +40,16 @@ export const Todolist =  (props:PropsType) => {
     const buttonOnClickFilterAll = () => props.changeFilter('all',props.id)
     const buttonOnClickFilterActive = () => props.changeFilter('active',props.id)
     const buttonOnClickFilterCompleted = () => props.changeFilter('completed',props.id)
+
+    let tasksForTodolists=props.tasks
+
+    if (props.filter==='completed'){
+        tasksForTodolists = props.tasks.filter( t=>t.isDone)
+    }
+    if (props.filter==='active'){
+        tasksForTodolists = props.tasks.filter( t=>!t.isDone)
+    }
+
 
     return <div>
         <h3>
@@ -58,7 +69,7 @@ export const Todolist =  (props:PropsType) => {
 
         <ul>
             {
-                props.tasks.map (t =>{
+                tasksForTodolists.map (t =>{
 
                     const taskPosition = (e:ChangeEvent<HTMLInputElement>) => {props.changeTaskStatus(t.id,e.currentTarget.checked,props.id)}
                     const newTitleTask = (title:string) =>{

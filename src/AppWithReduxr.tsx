@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useCallback, useReducer, useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import { v1 } from 'uuid';
@@ -42,37 +42,35 @@ const AppWithRedux = () => {
     const tasks= useSelector<AppRootStateType,TasksStateType>(state =>state.tasks)
 
 
-    const removeTodolist = (todolistID:string) =>{
+    const removeTodolist =useCallback(  (todolistID:string) =>{
         dispatch(RemoveTodolistAC(todolistID))
 
-    }
-    const addTodolist = (todolistTitle:string) => {
+    },[])
+    const newTitleTodolist =useCallback(  (newTitle:string,todolistID:string) =>{
+        dispatch(ChangeTodolistsTitlestAC(newTitle,todolistID))
+    },[])
+    const changeFilter = useCallback( (value:"all" | "completed" | "active", todolistID:string) =>{
+        dispatch(ChangeTodolistsFiltersTitlestAC(value,todolistID))
+    },[])
+    const addTodolist = useCallback( (todolistTitle:string) => {
         let todolistID3 = v1()
         dispatch(AddTodolistsAC(todolistID3,todolistTitle))
-    }
-    const newTitleTodolist = (newTitle:string,todolistID:string) =>{
-        dispatch(ChangeTodolistsTitlestAC(newTitle,todolistID))
-    }
-    const changeFilter = (value:"all" | "completed" | "active", todolistID:string) =>{
-        dispatch(ChangeTodolistsFiltersTitlestAC(value,todolistID))
-    }
+    },[dispatch])
 
 
 
-
-
-    const addTasks =(newTitle:string, todolistID:string)=>{
+    const addTasks =useCallback( (newTitle:string, todolistID:string)=>{
         dispatch(addTasksAC(newTitle,todolistID))
-    }
-    const removeTask = (id: string, todolistID:string) => {
+    },[])
+    const removeTask =useCallback(  (id: string, todolistID:string) => {
         dispatch(removeTaskAC(id,todolistID))
-    }
-    const changeTaskStatus = (idTask:string,newIsDone:boolean, todolistID:string) =>{
+    },[])
+    const changeTaskStatus = useCallback( (idTask:string,newIsDone:boolean, todolistID:string) =>{
         dispatch(changeTaskStatusAC(idTask,newIsDone,todolistID))
-    }
-    const newTitleTask = (newtitle:string, todolistID:string,id:string) =>{
+    },[])
+    const newTitleTask =useCallback(  (newtitle:string, todolistID:string,id:string) =>{
         dispatch(newTitleTaskAC(newtitle,todolistID,id))
-    }
+    },[])
 
 
     return (
@@ -83,14 +81,6 @@ const AppWithRedux = () => {
                 todolists.map( t => {
 
                     let Todolists = tasks[t.id]
-                    let allTodolists = Todolists
-
-                    if (t.filter==='completed'){
-                        allTodolists = Todolists.filter( t=>t.isDone)
-                    }
-                    if (t.filter==='active'){
-                        allTodolists = Todolists.filter( t=>!t.isDone)
-                    }
 
                     return(
 
@@ -100,7 +90,7 @@ const AppWithRedux = () => {
                             title={t.title}
                             filter={t.filter}
                             addTasks={addTasks}
-                            tasks={allTodolists}
+                            tasks={Todolists}
                             removeTask={removeTask}
                             changeFilter={changeFilter}
                             newTitleTask={newTitleTask}

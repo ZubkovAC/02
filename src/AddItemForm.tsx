@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from "react";
 import {TextField} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
 
@@ -7,7 +7,7 @@ type AddItemFormPropsType = {
 }
 
 
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddItemForm =React.memo( (props: AddItemFormPropsType) => {
 
     const [error, setError] = useState<string | null>(null)
     const [addTitle, setAddTitle] = useState('')
@@ -16,6 +16,9 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
         setAddTitle(e.currentTarget.value)
     }
     const inputOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if(error !== null){
+            setError(null)
+        }
         if (e.key === "Enter")
             addItem()
     }
@@ -52,4 +55,4 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
             }
         </div>
     )
-}
+})
