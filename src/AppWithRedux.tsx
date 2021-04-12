@@ -1,15 +1,14 @@
-import React, {useCallback, useReducer, useState} from 'react';
+import React, {useCallback,} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import { v1 } from 'uuid';
 import {AddItemForm} from "./AddItemForm";
 import {
-    todolistsReducer,
     ChangeTodolistsFiltersTitlestAC,
     AddTodolistsAC,
     RemoveTodolistAC, ChangeTodolistsTitlestAC
 } from "./state/todolists-reducer";
-import {tasksReducer, addTasksAC, removeTaskAC, changeTaskStatusAC, newTitleTaskAC} from "./state/tasks-reducer";
+import {addTasksAC, removeTaskAC, changeTaskStatusAC, newTitleTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 
@@ -31,8 +30,7 @@ export type TasksStateType={
     [key:string]:TaskType[]
 }
 
-let todolistID1 = v1()
-let todolistID2 = v1()
+
 
 const AppWithRedux = () => {
 

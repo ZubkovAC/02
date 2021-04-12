@@ -3,7 +3,6 @@ import {Checkbox} from "@material-ui/core";
 import {EditableSpan} from "./EditableSpan";
 import {DeleteSweep} from "@material-ui/icons";
 import { TaskType } from "./AppWithRedux";
-import {log} from "util";
 
 export type TasksPropsType = {
     task:TaskType
