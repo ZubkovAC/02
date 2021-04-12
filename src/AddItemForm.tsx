@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {TextField} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
 
-type AddItemFormPropsType = {
+export type AddItemFormPropsType = {
     addTitle: (title: string) => void
 }
 

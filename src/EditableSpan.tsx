@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useCallback, useState} from "react";
 
-type EditableSpanPropsType = {
+export type EditableSpanPropsType = {
     title: string
     onChange:(title:string)=>void
 }
