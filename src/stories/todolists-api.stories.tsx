@@ -1,47 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import axios from "axios";
 import {todolistAPI} from "../api/todolists-api";
 
 export default {
-    title: 'API-13'
+    title: 'API-13/TODOLISTS'
 }
-
-const settings = {
-    withCredentials:true,
-    headers: {
-        'API-KEY': 'b3721dee-f7d9-448c-a293-e8087db0634c'
-    }
-}
-// old axios
-
-// export const GetTodolists = () => {
-//     const [state, setState] = useState<any>(null)
-//     useEffect(() => {
-//         axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists',settings)
-//
-//            .then( (res) =>{
-//                setState(res.data)
-//            })
-//
-//     }, [])
-//     return <div> {JSON.stringify(state)}</div>
-// }
-//
-//
-// export const CreateTodolist = () => {
-//
-//     const [state, setState] = useState<any>(null)
-//     let title = 'Good morning'
-//     useEffect(() => {
-//         axios.post('https://social-network.samuraijs.com/api/1.1/todo-lists',{title:'Good morning'},settings)
-//             .then( (res) =>{
-//                 setState(res.data)
-//             })
-//     }, [])
-//     return <div> {JSON.stringify(state)}</div>
-// }
-
-// new axios
 
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)

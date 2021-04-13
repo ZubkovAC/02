@@ -1,16 +1,5 @@
 import axios from 'axios'
 
-// const settings = {
-//     withCredentials: true,
-//     headers: {
-//         // Не забываем заменить API-KEY на собственный
-//         'API-KEY': 'b3721dee-f7d9-448c-a293-e8087db0634c'
-//     }
-// }
-
-
-
-
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1",
@@ -32,9 +21,6 @@ type ResponseType < T = {} > ={
     messages: Array<string>
     resultCode: number
 }
-
-
-
 
 
 export const todolistAPI = {
