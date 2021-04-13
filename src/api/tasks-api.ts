@@ -25,7 +25,6 @@ export type ResonceTasks< T = []>  = {
     __proto__: Object
 }
 
-
 export const TasksAPI ={
     getTasks(todolistId:string){
         return instance.get<ResonceTasks<Task[]>>(`/todo-lists/${todolistId}/tasks`)
