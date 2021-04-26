@@ -49,7 +49,7 @@ export const Todolist = React.memo((props: PropsType) => {
     }
 
 
-    return <div>
+    return <div style={{margin:'20px'}}>
         <h3>
             <EditableSpan onChange={newTitleTodolist} title={props.title}/>
             <DeleteSweep color="disabled" onClick={() => {props.removeTodolist(props.id)}}>x</DeleteSweep>

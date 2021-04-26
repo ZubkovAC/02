@@ -1,4 +1,6 @@
 import {TodolistsType} from "../App";
+import {todolistAPI, TodolistResponseType} from "../api/todolists-api";
+
 
 export type InitialState = typeof initialState
 
@@ -27,6 +29,12 @@ export const todolistsReducer = (state: InitialState =initialState , action:Acti
                 filterTask.filter=action.filter
             return [...state]
         }
+        case "SET-TODOLIST":{
+            return action.todolists.map(tl=>({
+                ...tl,
+                filter:'all'
+            }))
+        }
         default:
             return state
     }
@@ -36,6 +44,16 @@ export const RemoveTodolistAC = (id: string)  =>({type: 'REMOVE-TODOLIST',id}as 
 export const AddTodolistsAC = (todolistID3:string,title:string) =>({type: 'ADD-TODOLIST',todolistID3,title}as const)
 export const  ChangeTodolistsTitlestAC = (title:string,id:string) =>({type: 'CHANGE-TODOLIST-TITLE',id,title}as const)
 export const  ChangeTodolistsFiltersTitlestAC = (filter:"all" | "completed" | "active",id:string) =>({type: 'CHANGE-TODOLIST-FILTER',id,filter}as const)
+export const  SetTodolistsAC = (todolists:TodolistResponseType[]) =>({type: 'SET-TODOLIST',todolists}as const)
+
+export const getTodolistsTC =() => (dispatch:any)=>{
+    return todolistAPI.getTodolists()
+        .then( res=>{
+            debugger
+            dispatch(SetTodolistsAC(res.data))
+        })
+}
+
 
 
 type ActionsType =
@@ -43,9 +61,10 @@ type ActionsType =
     | AddTodolistsActionType
     | ChangeTodolistsTitlesActionType
     | ChangeTodolistsFiltersActionType
-
+    | SetTodolistsActionType
 
 export type RemoveTodolistActionType = ReturnType<typeof RemoveTodolistAC>
 export type AddTodolistsActionType = ReturnType<typeof AddTodolistsAC>
 export type ChangeTodolistsTitlesActionType = ReturnType<typeof ChangeTodolistsTitlestAC>
 export type ChangeTodolistsFiltersActionType = ReturnType<typeof ChangeTodolistsFiltersTitlestAC>
+export type SetTodolistsActionType = ReturnType<typeof SetTodolistsAC>

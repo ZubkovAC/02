@@ -9,7 +9,7 @@ const instance = axios.create({
     }
 })
 
-type TodolistResponseType= {
+export type TodolistResponseType= {
     addedDate: string
     id: string
     order: number
