@@ -10,8 +10,7 @@ export const GetTodolists = () => {
     useEffect(() => {
         todolistAPI.getTodolists()
             .then( (res) =>{
-
-                setState(res.data.map(t=>t.title))
+                setState(res.data)
             })
 
     }, [])
@@ -26,7 +25,6 @@ export const CreateTodolist = () => {
     useEffect(() => {
         todolistAPI.createTodolist(title)
             .then( (res) =>{
-
                 setState(res.data)
             })
     }, [])
