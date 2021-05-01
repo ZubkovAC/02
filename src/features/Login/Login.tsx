@@ -32,6 +32,13 @@ export const Login = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
+            if (!values.password) {
+                errors.password = 'Required';
+            } else if (values.password.length > 15) {
+                errors.password = 'Must be 15 characters or less';
+            } else if (values.password.length < 6) {
+                errors.password = 'Must be 6 characters or less';
+            }
             return errors;
         },
         onSubmit: data => {
@@ -64,10 +71,6 @@ export const Login = () => {
                             label="Email"
                             margin="normal"
                             {...formik.getFieldProps('email')}
-                            // name='email'
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            // value={formik.values.email}
                         />
                         {
                             formik.values.email
@@ -78,10 +81,6 @@ export const Login = () => {
                             type="password"
                             label="Password"
                             {...formik.getFieldProps('password')}
-                            // margin="normal"
-                            // name='password'
-                            // onChange={formik.handleChange}
-                            // value={formik.values.password}
                         />
                         {
                             formik.values.password

@@ -1,15 +1,14 @@
 import {Dispatch} from 'redux'
 import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from '../../app/app-reducer'
-import {authAPI, LoginParamsType} from "../../api/todolists-api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {authAPI, LoginParamsType} from "../../api/authAPI";
 
 
 const initialState = {
     isLoggedIn: false
 }
-type InitialStateType = typeof initialState
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsAuthType): InitialStateType => {
+export const authReducer = (state: InitialAuthStateType = initialState, action: ActionsAuthType): InitialAuthStateType => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
@@ -18,9 +17,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
-// actions
+// AC
 export const setIsLogged = (value: boolean) => ({type: "login/SET-IS-LOGGED-IN", value} as const)
-// thunks
+// TC
 export const loginTC = (data:LoginParamsType) => (dispatch: Dispatch<ActionsAuthType>) => {
     dispatch(setAppStatusAC('loading'))
     return authAPI.login(data)
@@ -54,8 +53,12 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsAuthType>) => {
 }
 
 
+// Types
+type InitialAuthStateType = typeof initialState
+
+export type SetIsLogged = ReturnType<typeof setIsLogged>
 
 export type ActionsAuthType =
-    ReturnType<typeof setIsLogged>
+    | SetIsLogged
     | SetAppStatusActionType
     | SetAppErrorActionType
