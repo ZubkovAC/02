@@ -32,13 +32,11 @@ export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/AUTH-
 export const initializeAppTC = () => (dispatch: ThunkDispatch<InitialAppStateType, unknown, ActionsAppType | SetIsLogged>) => {
     authAPI.me()
         .then(res => {
-            debugger
             if (res.data.resultCode === 0) {
                 dispatch(setIsLogged(true));
-                dispatch(setIsInitializedAC(true))
-            } else {
             }
         })
+        .finally(()=>dispatch(setIsInitializedAC(true)))
 }
 
 // Types
