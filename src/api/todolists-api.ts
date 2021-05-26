@@ -1,26 +1,33 @@
 import axios from 'axios'
 
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+const settings = {
     withCredentials: true,
     headers: {
         'API-KEY': 'b3721dee-f7d9-448c-a293-e8087db0634c'
     }
+}
+const instance = axios.create({
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    ...settings
 })
 
 // api
 export const todolistsAPI = {
     getTodolists() {
-        return  instance.get<TodolistType[]>('todo-lists');
+        const promise = instance.get<TodolistType[]>('todo-lists');
+        return promise;
     },
     createTodolist(title: string) {
-        return instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title: title});
+        const promise = instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title: title});
+        return promise;
     },
     deleteTodolist(id: string) {
-        return instance.delete<ResponseType>(`todo-lists/${id}`);
+        const promise = instance.delete<ResponseType>(`todo-lists/${id}`);
+        return promise;
     },
     updateTodolist(id: string, title: string) {
-        return instance.put<ResponseType>(`todo-lists/${id}`, {title: title});
+        const promise = instance.put<ResponseType>(`todo-lists/${id}`, {title: title});
+        return promise;
     },
     getTasks(todolistId: string) {
         return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`);
@@ -29,7 +36,7 @@ export const todolistsAPI = {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
     },
     createTask(todolistId: string, taskTitile: string) {
-        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title: taskTitile});
+        return instance.post<ResponseType<{ item: TaskType}>>(`todo-lists/${todolistId}/tasks`, {title: taskTitile});
     },
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
@@ -37,6 +44,27 @@ export const todolistsAPI = {
 }
 
 
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+
+export const authAPI = {
+    login(data: LoginParamsType) {
+        const promise = instance.post<ResponseType<{userId?: number}>>('auth/login', data);
+        return promise;
+    },
+    logout() {
+        const promise = instance.delete<ResponseType<{userId?: number}>>('auth/login');
+        return promise;
+    },
+    me() {
+       const promise =  instance.get<ResponseType<{id: number; email: string; login: string}>>('auth/me');
+       return promise
+    }
+}
 
 // types
 export type TodolistType = {
@@ -50,14 +78,12 @@ export type ResponseType<D = {}> = {
     messages: Array<string>
     data: D
 }
-
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3
 }
-
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -65,7 +91,6 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
-
 export type TaskType = {
     description: string
     title: string
