@@ -3,7 +3,6 @@ import {appReducer, InitialStateType, setAppErrorAC, setAppStatusAC} from './app
 let startState: InitialStateType;
 
 beforeEach(() => {
-    // @ts-ignore
     startState = {
         error: null,
         status: 'idle'

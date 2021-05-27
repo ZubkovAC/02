@@ -4,7 +4,6 @@ import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reduc
 import {TaskPriorities, TaskStatuses} from '../../api/todolists-api'
 
 let startState: TasksStateType = {};
-
 beforeEach(() => {
     startState = {
         "todolistId1": [
