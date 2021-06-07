@@ -91,7 +91,6 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
 }
 
 // types
-
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
