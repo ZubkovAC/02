@@ -32,8 +32,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         if (demo || !isLoggedIn) {
             return;
         }
-        const thunk = fetchTodolistsTC()
-        dispatch(thunk)
+        dispatch(fetchTodolistsTC())
     }, [])
 
     const removeTask = useCallback(function (taskId: string, todolistId: string) {
@@ -47,12 +46,12 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [])
 
     const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-        const thunk = updateTaskTC(id, {status}, todolistId)
+        const thunk = updateTaskTC({taskId :id ,model: {status},todolistId})
         dispatch(thunk)
     }, [])
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-        const thunk = updateTaskTC(id, {title: newTitle}, todolistId)
+        const thunk = updateTaskTC({taskId:id, model:{title: newTitle}, todolistId})
         dispatch(thunk)
     }, [])
 
@@ -67,7 +66,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [])
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
-        const thunk = changeTodolistTitleTC(id, title)
+        const thunk = changeTodolistTitleTC({id, title})
         dispatch(thunk)
     }, [])
 

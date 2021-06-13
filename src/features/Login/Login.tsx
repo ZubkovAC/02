@@ -40,8 +40,8 @@ export const Login = () => {
         onSubmit: async (values, formikHelpers: FormikHelpers<FormikValuesType>) => {
             const action =   await dispatch(loginTC(values));
             if( loginTC.rejected.match(action)){
-                if( action.payload?.fieldError?.length ){
-                    let error = action.payload?.fieldError[0]
+                if( action.payload?.fieldsErrors?.length ){
+                    let error = action.payload?.fieldsErrors[0]
                     formikHelpers.setFieldError(error.field ,error.error)
                 }
             }
